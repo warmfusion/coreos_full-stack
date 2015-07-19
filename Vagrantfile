@@ -18,7 +18,7 @@ $share_home = false
 $vm_gui = false
 $vm_memory = 1024
 $vm_cpus = 1
-$shared_folders = {'storage' => '/mnt/storage',
+$shared_folders = {
 'docker' => '/mnt/docker',
 'templates' => '/mnt/templates'
 }
