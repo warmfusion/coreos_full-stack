@@ -3,7 +3,7 @@
 coreos:
   etcd2:
     #generate a new token for each unique cluster from https://discovery.etcd.io/new?size=2
-    discovery: https://discovery.etcd.io/66799bccb44f0e9486d7d7fdcdc0b66e
+    discovery: https://discovery.etcd.io/1d7f12c6d8fd838cc5091173b01b9484
     # multi-region and multi-cloud deployments need to use $public_ipv4
     advertise-client-urls: http://$public_ipv4:2379
     initial-advertise-peer-urls: http://$private_ipv4:2380
@@ -19,7 +19,7 @@ coreos:
    # Reboot after first taking a distributed lock in etcd, this guarantees that 
    # only one host will reboot concurrently and that the cluster will remain 
    # available during the update.
-    reboot-strategy: etcd-lock
+    reboot-strategy: reboot
   units:
     # Note: this requires a release that contains etcd2
     - name: etcd2.service
