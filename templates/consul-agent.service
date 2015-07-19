@@ -7,9 +7,10 @@ After=docker.service
 
 [Service]
 TimeoutStartSec=0
+Restart=always
 ExecStartPre=-/usr/bin/docker kill consul-agent
 ExecStartPre=-/usr/bin/docker rm consul-agent
-ExecStartPre=/usr/bin/docker pull warmfusion/consul-agent
+ExecStartPre=/usr/bin/docker pull warmfusion/consul-agent:0.5
 ExecStart=/usr/bin/docker run --name consul-agent -P warmfusion/consul-agent:0.5
 ExecStop=/usr/bin/docker stop consul-agent
 
