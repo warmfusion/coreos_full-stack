@@ -1,0 +1,12 @@
+[Unit]
+Description=NGINX
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill nginx1
+ExecStartPre=-/usr/bin/docker rm nginx1
+ExecStartPre=/usr/bin/docker pull warmfusion/nginx
+ExecStart=/usr/bin/docker run --name nginx1 -d -p 80:80 -v /mnt/docker/nginx/conf.d:/etc/nginx/conf.d warmfusion/nginx 
+ExecStop=/usr/bin/docker stop nginx1

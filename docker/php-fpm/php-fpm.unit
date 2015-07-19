@@ -1,0 +1,12 @@
+[Unit]
+Description=PHP-FPM
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill fpm1
+ExecStartPre=-/usr/bin/docker rm fpm1
+ExecStartPre=/usr/bin/docker pull warmfusion/php-fpm
+ExecStart=/usr/bin/docker run --name fpm1 warmfusion/php-fpm
+ExecStop=/usr/bin/docker stop fpm1

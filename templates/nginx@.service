@@ -1,0 +1,20 @@
+[Unit]
+Description=Nginx server service on port %i
+After=docker.service
+Requires=docker.service
+Requires=etcd.service
+Requires=nginx-discovery@%i.service
+
+# Dependency ordering
+After=etcd.service
+After=docker.service
+Before=nginx-discovery@%i.service
+
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill nginx1
+ExecStartPre=-/usr/bin/docker rm nginx1
+ExecStartPre=/usr/bin/docker pull warmfusion/nginx
+ExecStart=/usr/bin/docker run --name nginx1 -d -p 80:80 -v /mnt/docker/nginx/conf.d:/etc/nginx/conf.d warmfusion/nginx 
+ExecStop=/usr/bin/docker stop nginx1

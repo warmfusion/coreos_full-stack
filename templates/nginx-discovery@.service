@@ -1,0 +1,12 @@
+[Unit]
+Description=Announce nginx%i
+BindsTo=nginx@%i.service
+After=nginx@%i.service
+
+[Service]
+# Reset every 45 seconds that nginx is running on HostX port 80 on etcd (Will use consul later)
+ExecStart=/bin/sh -c "while true; do etcdctl set /services/website/nginx@%i '{ \"host\": \"%H\", \"port\": 80, \"version\": \"52c7248a14\" }' --ttl 60;sleep 45;done"
+ExecStop=/usr/bin/etcdctl rm /services/website/nginx@%i
+
+[X-Fleet]
+MachineOf=nginx@%i.service
