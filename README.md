@@ -49,3 +49,9 @@
     fleetctl start consul-agent
 
     fleetctl start consul-server@1
+
+* Join consul-agents to the master by running a manual (at the moment) exec:
+
+    SRV_IP=<IP Of the consul-server host>
+    docker exec $( docker ps -f name=consul-agent -q) consul join $SRV_IP
+

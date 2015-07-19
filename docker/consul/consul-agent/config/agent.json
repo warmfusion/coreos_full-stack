@@ -1,6 +1,6 @@
 {
   "client_addr": "0.0.0.0",
-  "data_dir": "/data",
+  "data_dir": "/var/consul",
   "leave_on_terminate": true,
   "dns_config": {
     "allow_stale": true,

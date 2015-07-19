@@ -1,6 +1,8 @@
 {
   "ui_dir": "/ui",
   "server": true,
+  "bootstrap": true,
+  "data_dir": "/var/consul",
   "dns_config": {
     "allow_stale": false
   }
