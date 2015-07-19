@@ -1,0 +1,16 @@
+[Unit]
+Description=Nginx simple server
+Requires=docker.service
+Requires=etcd2.service
+
+# Dependency ordering
+After=etcd2.service
+After=docker.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill nginx-simple
+ExecStartPre=-/usr/bin/docker rm nginx-simple
+ExecStartPre=/usr/bin/docker pull warmfusion/nginx
+ExecStart=/usr/bin/docker run --name nginx-simple -d -p 80:80 -v /mnt/docker/nginx/conf.d:/etc/nginx/conf.d warmfusion/nginx 
+ExecStop=/usr/bin/docker stop nginx-simple
