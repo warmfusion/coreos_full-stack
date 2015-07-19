@@ -33,8 +33,8 @@ RUN php5enmod mcrypt
 ADD run.sh /run.sh
 RUN chmod 755 /*.sh
 
-# Configure nginx root with sample app
-ADD web-root/ /var/www/public
+# Define mountable directories.
+VOLUME ["/var/log/php", "/var/www"]
 
 EXPOSE 9000
 CMD ["/run.sh"]

@@ -37,3 +37,15 @@
 3 Vagrant managed virtual machines running the 'Hardware' as defined in the Vagrantfile.
 
 
+## Getting-Started
+
+* SSH onto one of the core nodes and load up the various templates.
+
+    fleetctl submit /mnt/templates/*
+    # Start up the nginx and php containers
+    fleetctl start {nginx,php-fpm}{,-discovery}@{1,2,3}
+    
+    # Lets get CONSUL started *everywhere*
+    fleetctl start consul-agent
+
+    fleetctl start consul-server@1

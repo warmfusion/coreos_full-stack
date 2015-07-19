@@ -1,0 +1,14 @@
+[Unit]
+Description=Runs a Consul Server
+After=docker.service
+
+# Dependency ordering
+After=docker.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill consul-server%i
+ExecStartPre=-/usr/bin/docker rm consul-server%i
+ExecStartPre=/usr/bin/docker pull warmfusion/consul-server
+ExecStart=/usr/bin/docker run --name consul-server%i -P warmfusion/consul-server:0.5
+ExecStop=/usr/bin/docker stop consul-server%i

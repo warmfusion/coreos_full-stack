@@ -1,0 +1,22 @@
+[Unit]
+Description=php-fpm server service on port %i
+After=docker.service
+Requires=etcd2.service
+Requires=php-fpm-discovery@%i.service
+
+# Dependency ordering
+After=etcd2.service
+After=docker.service
+Before=php-fpm-discovery@%i.service
+
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill php-fpm%i
+ExecStartPre=-/usr/bin/docker rm php-fpm%i
+ExecStartPre=/usr/bin/docker pull warmfusion/php-fpm
+ExecStart=/usr/bin/docker run --name php-fpm%i -p 80:80 -v /mnt/docker/php-fpm/web-root:/var/www warmfusion/php-fpm 
+ExecStop=/usr/bin/docker stop php-fpm%i
+
+[X-Fleet]
+Conflicts=php-fpm@*.service
