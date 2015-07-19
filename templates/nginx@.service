@@ -15,5 +15,5 @@ TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker kill nginx%i
 ExecStartPre=-/usr/bin/docker rm nginx%i
 ExecStartPre=/usr/bin/docker pull warmfusion/nginx
-ExecStart=/usr/bin/docker run --name nginx%i -d -p 80:80 -v /mnt/docker/nginx/conf.d:/etc/nginx/conf.d warmfusion/nginx 
+ExecStart=/usr/bin/docker run --name nginx%i -p 80:80 -v /mnt/docker/nginx/conf.d:/etc/nginx/conf.d warmfusion/nginx 
 ExecStop=/usr/bin/docker stop nginx%i
