@@ -9,7 +9,7 @@ CLOUD_CONFIG_PATH = File.join(File.dirname(__FILE__), "user-data")
 CONFIG = File.join(File.dirname(__FILE__), "config.rb")
 
 # Defaults for config options defined in CONFIG
-$num_instances = 2
+$num_instances = 1
 $instance_name_prefix = "core"
 $update_channel = "stable"
 $image_version = "current"
@@ -20,7 +20,7 @@ $vm_memory = 1024
 $vm_cpus = 1
 $shared_folders = {'storage' => '/mnt/storage',
 'docker' => '/mnt/docker',
-'templates' => '/mnt/templatees'
+'templates' => '/mnt/templates'
 }
 $forwarded_ports = {}
 
