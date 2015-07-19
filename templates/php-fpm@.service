@@ -12,6 +12,7 @@ Before=php-fpm-discovery@%i.service
 
 [Service]
 TimeoutStartSec=0
+Restart=always
 ExecStartPre=-/usr/bin/docker kill php-fpm%i
 ExecStartPre=-/usr/bin/docker rm php-fpm%i
 ExecStartPre=/usr/bin/docker pull warmfusion/php-fpm

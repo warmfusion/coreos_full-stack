@@ -12,6 +12,7 @@ Before=nginx-discovery@%i.service
 
 [Service]
 TimeoutStartSec=0
+Restart=always
 ExecStartPre=-/usr/bin/docker kill nginx%i
 ExecStartPre=-/usr/bin/docker rm nginx%i
 ExecStartPre=/usr/bin/docker pull warmfusion/nginx
