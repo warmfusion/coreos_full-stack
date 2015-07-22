@@ -30,3 +30,14 @@ CMD ["nginx"]
 # Expose ports.
 EXPOSE 80
 EXPOSE 443
+
+
+# Registrator environment variables for service discovery
+ENV SERVICE_80_CHECK_HTTP /health/endpoint/path
+ENV SERVICE_80_CHECK_INTERVAL 15s
+# Optional, Consul default value is used when not specified
+ENV SERVICE_80_CHECK_TIMEOUT 5s
+
+ENV SERVICE_443_NAME https
+ENV SERVICE_80_NAME http
+ENV SERVICE_TAGS www
