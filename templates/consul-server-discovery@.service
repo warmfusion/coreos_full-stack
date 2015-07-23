@@ -8,7 +8,7 @@ Requires=etcd2.service
 [Service]
 # Reset every 45 seconds that consul-server is avaliable - Note that we
 # would overwrite the same key if multiple-servers are running, but thats ok for now
-ExecStart=/bin/sh -c "source /etc/environment && while true; do etcdctl set /services/consul/server $COREOS_PRIVATE_IPV4 --ttl 60;sleep 45;done"
+ExecStart=/bin/sh -c "source /etc/environment && while true; do etcdctl set /services/consul/server '%H:18500' --ttl 60;sleep 45;done"
 ExecStop=/usr/bin/etcdctl rm /services/consul/%p@%i
 
 [X-Fleet]
