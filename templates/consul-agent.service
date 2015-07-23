@@ -1,6 +1,5 @@
 [Unit]
 Description=Runs a Consul Agent on all the Core-OS nodes
-After=docker.service
 
 # Dependency ordering
 After=docker.service
@@ -11,7 +10,14 @@ Restart=always
 ExecStartPre=-/usr/bin/docker kill consul-agent
 ExecStartPre=-/usr/bin/docker rm consul-agent
 ExecStartPre=/usr/bin/docker pull warmfusion/consul-agent:0.5
-ExecStart=/usr/bin/docker run --name consul-agent -P warmfusion/consul-agent:0.5
+ExecStart=/bin/sh -c "source /etc/environment && \
+   /usr/bin/docker run --name consul-agent \
+    -p $COREOS_PRIVATE_IPV4:8300:8300 -p $COREOS_PRIVATE_IPV4:8301:8301 -p $COREOS_PRIVATE_IPV4:8301:8301/udp \
+    -p $COREOS_PRIVATE_IPV4:8302:8302 -p $COREOS_PRIVATE_IPV4:8302:8302/udp -p $COREOS_PRIVATE_IPV4:8400:8400 \
+    -p $COREOS_PRIVATE_IPV4:8500:8500 \
+    warmfusion/consul-agent:0.5 \
+   -join $(etcdctl get /services/consul/server) \
+   -advertise $COREOS_PRIVATE_IPV4"
 ExecStop=/usr/bin/docker stop consul-agent
 
 [X-Fleet]

@@ -2,13 +2,10 @@
 Description=php-fpm server service on port %i
 After=docker.service
 Requires=etcd2.service
-Requires=php-fpm-discovery@%i.service
 
 # Dependency ordering
 After=etcd2.service
 After=docker.service
-Before=php-fpm-discovery@%i.service
-
 
 [Service]
 TimeoutStartSec=0

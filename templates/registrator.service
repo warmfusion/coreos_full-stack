@@ -1,0 +1,29 @@
+[Unit]
+Description=registrator
+Documentation=https://github.com/gliderlabs/registrator
+X-Image=gliderlabs/registrator
+
+# We use docker links to attach the registrator to the consul-agents
+# which are started up on every box
+Requires=consul-agent.service
+After=consul-agent.service
+
+[Service]
+# So COREOS_PRIVATE_IPV4 stuff works
+EnvironmentFile=/etc/environment
+ExecStart=/usr/bin/docker run \
+  --link consul-agent:consul-agent \
+  --name registrator \
+  -v /var/run/docker.sock:/tmp/docker.sock \
+  gliderlabs/registrator  \
+    consul://consul-agent:8500"
+ExecStop=/usr/bin/docker rm -f registrator
+TimeoutStartSec=30s
+TimeoutStopSec=30s
+RestartSec=30s
+Restart=on-failure
+
+[X-Fleet]
+Global=true
+
+

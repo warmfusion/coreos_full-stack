@@ -2,12 +2,10 @@
 Description=Nginx server service on port %i
 After=docker.service
 Requires=etcd2.service
-Requires=nginx-discovery@%i.service
 
 # Dependency ordering
 After=etcd2.service
 After=docker.service
-Before=nginx-discovery@%i.service
 
 
 [Service]
