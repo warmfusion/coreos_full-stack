@@ -62,6 +62,9 @@ Vagrant.configure("2") do |config|
     # in CoreOS, so tell Vagrant that so it can be smarter.
     v.check_guest_additions = false
     v.functional_vboxsf     = false
+    # Fix docker not being able to resolve private registry in VirtualBox
+    v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+    v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
   end
 
   # plugin conflict
