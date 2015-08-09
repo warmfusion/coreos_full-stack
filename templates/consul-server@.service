@@ -7,13 +7,14 @@ Requires=consul-server-discovery@%i.service
 After=docker.service
 
 [Service]
+
 TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker kill consul-server-%i
 ExecStartPre=-/usr/bin/docker rm consul-server-%i
 ExecStartPre=/usr/bin/docker pull warmfusion/consul-server:0.5
 ExecStart=/usr/bin/docker run --name consul-server-%i \
-    -p 18300:18300 -p 18301:18301 -p 18301:18301/udp \
-    -p 18302:18302 -p 18302:18302/udp -p 18400:18400 \
-    -p 18500:18500 -p 18600:18600/udp \
-     warmfusion/consul-server:0.5
+    -p ${COREOS_PRIVATE_IPV4}:18300:18300 -p ${COREOS_PRIVATE_IPV4}:18301:18301 -p ${COREOS_PRIVATE_IPV4}:18301:18301/udp \
+    -p ${COREOS_PRIVATE_IPV4}:18302:18302 -p ${COREOS_PRIVATE_IPV4}:18302:18302/udp -p ${COREOS_PRIVATE_IPV4}:18400:18400 \
+    -p ${COREOS_PRIVATE_IPV4}:18500:18500 -p ${COREOS_PRIVATE_IPV4}:18600:18600/udp \
+     warmfusion/consul-server:0.5 -bind=0.0.0.0 -bootstrap
 ExecStop=/usr/bin/docker stop consul-server-%i

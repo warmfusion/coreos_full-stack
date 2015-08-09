@@ -9,8 +9,8 @@ RUN cd /tmp && unzip webui.zip && mv dist /ui && rm webui.zip
 
 RUN mkdir /var/consul
 
-#The consul-server docker runs on standard ports + 10,000
-# so it can run alongside the consul-agent
-EXPOSE 18300 18301 18301/udp 18302 18302/udp 18400 18500 18600 18600/udp
+# The consul-server docker runs on standard ports + 10,000
+#   so it can run alongside the consul-agent
+EXPOSE 8300 8301 8301/udp 8302 8302/udp 8400 8500 8600 8600/udp
 
 ENTRYPOINT ["/bin/consul", "agent", "-server", "-config-dir=/config"]

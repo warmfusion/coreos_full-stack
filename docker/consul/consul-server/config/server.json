@@ -1,17 +1,8 @@
 {
   "ui_dir": "/ui",
   "server": true,
-  "bootstrap": true,
   "data_dir": "/var/consul",
   "dns_config": {
     "allow_stale": false
-  },
-  "ports": {
-    "server": 18300,
-    "serf_lan": 18301,
-    "serf_wan": 18302,
-    "rpc": 18400,
-    "http": 18500,
-    "dns": 18600
   }
 }
